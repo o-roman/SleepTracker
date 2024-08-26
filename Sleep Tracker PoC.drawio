@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0" version="24.7.7">
+  <diagram name="Page-1" id="vLoHgmZ531aYwFRwwgno">
+    <mxGraphModel dx="1185" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wovnnYyU0kntw8l9B6f9-46" value="Breakout Sensor Board" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;spacingTop=-300;spacingRight=0;spacingLeft=400;" parent="1" vertex="1">
+          <mxGeometry x="140" y="280" width="510" height="233" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="wovnnYyU0kntw8l9B6f9-4" target="wovnnYyU0kntw8l9B6f9-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="440" as="targetPoint" />
+            <mxPoint x="150" y="230" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="150" y="200" />
+              <mxPoint x="150" y="500" />
+              <mxPoint x="580" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-42" value="&lt;div&gt;3V3&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wovnnYyU0kntw8l9B6f9-21" vertex="1" connectable="0">
+          <mxGeometry x="-0.5422" y="2" relative="1" as="geometry">
+            <mxPoint x="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="wovnnYyU0kntw8l9B6f9-3" target="wovnnYyU0kntw8l9B6f9-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-31" value="I2C" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wovnnYyU0kntw8l9B6f9-11" vertex="1" connectable="0">
+          <mxGeometry x="-0.0138" y="-1" relative="1" as="geometry">
+            <mxPoint x="19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-3" value="&lt;div&gt;Oximetry Sensor&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-4" value="&lt;div&gt;Microcontroller Dev Board&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="140" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="wovnnYyU0kntw8l9B6f9-5" target="wovnnYyU0kntw8l9B6f9-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="323" />
+              <mxPoint x="390" y="300" />
+              <mxPoint x="420" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-29" value="&lt;div&gt;I2C&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wovnnYyU0kntw8l9B6f9-10" vertex="1" connectable="0">
+          <mxGeometry x="-0.1782" y="-1" relative="1" as="geometry">
+            <mxPoint x="-11" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-5" value="Biometric Sensor Hub" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="293" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="wovnnYyU0kntw8l9B6f9-7" target="wovnnYyU0kntw8l9B6f9-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-30" value="I2C" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wovnnYyU0kntw8l9B6f9-12" vertex="1" connectable="0">
+          <mxGeometry x="0.0414" y="-3" relative="1" as="geometry">
+            <mxPoint x="-18" y="43" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-7" value="&lt;div&gt;Accelerometer&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="wovnnYyU0kntw8l9B6f9-8" target="wovnnYyU0kntw8l9B6f9-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="320" />
+              <mxPoint x="450" y="320" />
+              <mxPoint x="450" y="300" />
+              <mxPoint x="420" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-27" value="&lt;div&gt;I2C&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wovnnYyU0kntw8l9B6f9-13" vertex="1" connectable="0">
+          <mxGeometry x="-0.5559" y="2" relative="1" as="geometry">
+            <mxPoint x="-25" y="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-8" value="Thermometer" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="wovnnYyU0kntw8l9B6f9-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="500" as="sourcePoint" />
+            <mxPoint x="259.65999999999997" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="wovnnYyU0kntw8l9B6f9-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="500" as="sourcePoint" />
+            <mxPoint x="430" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="wovnnYyU0kntw8l9B6f9-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="310" as="sourcePoint" />
+            <mxPoint x="50" y="313" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wovnnYyU0kntw8l9B6f9-44" target="wovnnYyU0kntw8l9B6f9-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wovnnYyU0kntw8l9B6f9-44" value="PC Power" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="60" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9-X4Kg9-oFfCCaP7vY0H-2" value="Finger Hardware" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;spacingTop=-500;spacingRight=0;spacingLeft=400;" vertex="1" parent="1">
+          <mxGeometry x="120" y="130" width="560" height="420" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
