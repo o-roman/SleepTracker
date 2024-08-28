@@ -1,14 +1,14 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0" version="24.7.7">
   <diagram name="Page-1" id="-sziISOhZBCgW68WRiRN">
-    <mxGraphModel dx="2440" dy="1311" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="431" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-1" value="Finger Hardware" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;spacingTop=-500;spacingRight=0;spacingLeft=400;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="305" y="238" width="560" height="420" as="geometry" />
-        </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-2" value="Breakout Sensor Board" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;spacingTop=-300;spacingRight=0;spacingLeft=400;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="325" y="388" width="510" height="233" as="geometry" />
+        </mxCell>
+        <mxCell id="NcvXT8SLPfawrKJ4mpWX-1" value="Finger Hardware" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;spacingTop=-500;spacingRight=0;spacingLeft=400;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="305" y="238" width="560" height="420" as="geometry" />
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontColor=#000000;" edge="1" parent="1" source="NcvXT8SLPfawrKJ4mpWX-8" target="NcvXT8SLPfawrKJ4mpWX-17">
           <mxGeometry relative="1" as="geometry">
@@ -26,36 +26,26 @@
             <mxPoint x="-22" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="NcvXT8SLPfawrKJ4mpWX-7" target="NcvXT8SLPfawrKJ4mpWX-11">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-6" value="I2C" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="NcvXT8SLPfawrKJ4mpWX-5">
-          <mxGeometry x="-0.0138" y="-1" relative="1" as="geometry">
-            <mxPoint x="19" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-7" value="&lt;div&gt;Oximetry Sensor&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="NcvXT8SLPfawrKJ4mpWX-7" value="&lt;div&gt;Oximetry Module&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="385" y="488" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-8" value="&lt;div&gt;Microcontroller Dev Board&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="545" y="248" width="120" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" target="NcvXT8SLPfawrKJ4mpWX-8">
+        <mxCell id="NcvXT8SLPfawrKJ4mpWX-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;exitX=0.461;exitY=-0.017;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" target="NcvXT8SLPfawrKJ4mpWX-8" source="NcvXT8SLPfawrKJ4mpWX-7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
+              <mxPoint x="440" y="428" />
               <mxPoint x="605" y="428" />
             </Array>
-            <mxPoint x="505" y="428" as="sourcePoint" />
+            <mxPoint x="510" y="428" as="sourcePoint" />
             <mxPoint x="605" y="428" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-10" value="&lt;div&gt;I2C&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="NcvXT8SLPfawrKJ4mpWX-9">
           <mxGeometry x="-0.1782" y="-1" relative="1" as="geometry">
-            <mxPoint x="-11" y="-23" as="offset" />
+            <mxPoint x="-78" y="41" as="offset" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-11" value="Biometric Sensor Hub" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="385" y="398" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="NcvXT8SLPfawrKJ4mpWX-14" target="NcvXT8SLPfawrKJ4mpWX-8">
           <mxGeometry relative="1" as="geometry" />
@@ -79,7 +69,7 @@
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-16" value="&lt;div&gt;I2C&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="NcvXT8SLPfawrKJ4mpWX-15">
           <mxGeometry x="-0.5559" y="2" relative="1" as="geometry">
-            <mxPoint x="-25" y="-22" as="offset" />
+            <mxPoint x="-13" y="40" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-17" value="Thermometer" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
@@ -95,16 +85,6 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="605" y="608" as="sourcePoint" />
             <mxPoint x="615" y="558" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="NcvXT8SLPfawrKJ4mpWX-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;sourcePerimeterSpacing=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="NcvXT8SLPfawrKJ4mpWX-11">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="355" y="428" as="sourcePoint" />
-            <mxPoint x="465" y="358" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="385" y="428" />
-              <mxPoint x="385" y="428" />
-            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="NcvXT8SLPfawrKJ4mpWX-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;" edge="1" parent="1" source="NcvXT8SLPfawrKJ4mpWX-22" target="NcvXT8SLPfawrKJ4mpWX-8">
