@@ -17,9 +17,7 @@
 #include "esp_mac.h"
 
 #define DATA_BUFF 8
-#define DATA_BUFF 8
 #define TMP117_ADDR 0x48
-#define MC3479 0x6C
 #define MC3479 0x6C
 #define MAX32664_ADDR 0x55
 #define GPIO_RST GPIO_NUM_7
@@ -62,21 +60,18 @@ uint8_t max32664_interrupt_threshold[3] = {0x10, 0x01, 0x0F};
 uint8_t max30101_mode_on[3] = {0x44, 0x03, 0x01};
 uint8_t max32644_hr_algo[3] = {0x52, 0x02, 0x01};
 uint8_t max30101_agc_mode_off[3] = {0x52, 0x00, 0x00};
-uint8_t max30101_led1_mode[3] = {0x40, 0x03, 0x0C, 0x7F};
-uint8_t max30101_led2_mode[3] = {0x40, 0x03, 0x0D, 0x7F};
+uint8_t max30101_led1_mode[4] = {0x40, 0x03, 0x0C, 0x7F};
+uint8_t max30101_led2_mode[4] = {0x40, 0x03, 0x0D, 0x7F};
 uint8_t max30101_num_sample_FIFO[2] = {0x12, 0x00};
 uint8_t max30101_read_FIFO[2] = {0x12, 0x01};
 uint8_t max32644_status[2] = {0x00, 0x00};
 
 /**
  * Interrupt service routine that calls when the MAX30101 FIFO buffer has been filled 
- * #TODO think about if this will be the routine for just the MAX or for all data calling
- * i.e. are there going to be multiple isrs (one per sensor reading, not necessarily a bad
- * thing could write it generically tho and it could be good practise)
  */
-void i2c_isr() {
+static void gpio_isr_handler(void* arg) {
+
     // #TODO Have a look at using this function
-    
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
@@ -87,28 +82,46 @@ void i2c_isr() {
     // Actually read sensor data
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, test_buff, DATA_BUFF, -1));
 
-}
+    vTaskDelay(10 / portTICK_PERIOD_MS);
+
+    printf("Bytes contained are: ");
+        
+        for(int i = 0; i < DATA_BUFF; i++) {
+            printf("0x%x ", test_buff[i]);
+        }
+        printf("\n");
+
+    // After ISR complete, set the pin back low ready for another interrupt
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
+} 
 
 /**
  * Function that initialises all needed gpio ports 
  */
 void gpio_init() {
-    
+
     // Set default level high to NOT reset
     ESP_ERROR_CHECK(gpio_set_direction(GPIO_RST, GPIO_MODE_INPUT));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 1));
-
     ESP_ERROR_CHECK(gpio_set_direction(GPIO_MFIO, GPIO_MODE_INPUT_OUTPUT));
-    ESP_ERROR_CHECK(gpio_set_intr_type(GPIO_MFIO, GPIO_INTR_POSEDGE));
-    ESP_ERROR_CHECK(gpio_intr_enable(GPIO_MFIO));
+    ESP_ERROR_CHECK(gpio_set_intr_type(GPIO_MFIO, GPIO_INTR_NEGEDGE));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
-
-    //TODO if handle is needed make an isr_handle
-    gpio_isr_register(&i2c_isr, NULL, 0, NULL);
+    
 }
+/**
+ * Function that initialises interrupt pin (MFIO)
+ */
+void itr_init() {
+    // Initialise GPIO ISR to default
+    gpio_install_isr_service(0);
 
-void i2c_init() {
-
+    // Attach ISR to GPIO interrupt
+    gpio_isr_handler_add(GPIO_MFIO, gpio_isr_handler, NULL);
+    
+    // Enable the interrupt
+    ESP_ERROR_CHECK(gpio_intr_enable(GPIO_MFIO));
+    
+    
 }
 
 void sensor_init() {
@@ -136,23 +149,26 @@ void app_main() {
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &max32664_config, &max32664_handle));
     printf("max PASSED\n");
     
-    
-
     // Startup for the MAX32664
     gpio_set_level(GPIO_RST, 0);
     vTaskDelay(5 / portTICK_PERIOD_MS);
     gpio_set_level(GPIO_MFIO, 1);
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(10/ portTICK_PERIOD_MS);
     gpio_set_level(GPIO_RST, 1);
 
     vTaskDelay(1500 / portTICK_PERIOD_MS);
 
+    // Set up interrupts after MAX is set up to avoid conflicting toggle raising interrupt
+    itr_init();
+
     // Running
     // Turn on sensors
+    printf("Communicating with MAX32664 Hub\n");
+
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_mode_write, (uint8_t) sizeof(max32664_mode_write), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
-    
+
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_interrupt_threshold, (uint8_t) sizeof(max32664_interrupt_threshold), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
@@ -188,12 +204,8 @@ void app_main() {
 
     // Main loop reads out of the output buffer and prints to terminal
     while (1) {
-        printf("Bytes contained are: ");
-        for(int i = 0; i < DATA_BUFF; i++) {
-            printf("0x%x ", test_buff[i]);
-        }
-        printf("\n");
-
+        
+        printf("Loop\n");
         vTaskDelay(1000/ portTICK_PERIOD_MS);
         
     }
