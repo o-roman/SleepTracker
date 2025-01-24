@@ -131,22 +131,27 @@ void max32664_init() {
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_mode_write, (uint8_t) sizeof(max32664_mode_write), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+    printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_interrupt_threshold, (uint8_t) sizeof(max32664_interrupt_threshold), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+    printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_mode_on, (uint8_t) sizeof(max30101_mode_on), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+    printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_hr_algo, (uint8_t) sizeof(max32644_hr_algo), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+    printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_agc_mode_off, (uint8_t) sizeof(max30101_agc_mode_off), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+    printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     // Wait 100 ms to allow sensors to turn on
     vTaskDelay(100 / portTICK_PERIOD_MS);
@@ -176,13 +181,14 @@ void max32664_init() {
 /**
  * Helper function that read the content of a buffer and prints to stdout.
  */
-void buffer_read(uint8_t* buff) {
+void buffer_read(uint8_t buff[]) {
     printf("Contents of the buffer: ");
     int i = 0;
-    while(i < (sizeof(buff)/sizeof(buff[0]))) {
+    while(i < (sizeof(buff) / sizeof(buff[0]))) {
         printf("0x%x ", buff[i]);
     }
     printf("\n");
+    i++;
 }
 
 /**
@@ -190,8 +196,7 @@ void buffer_read(uint8_t* buff) {
  */
 void app_main() {
     
-    printf("Initialising board... \n");
-
+    printf("Initialising board...\n");
     gpio_init();
 
     ESP_ERROR_CHECK(i2c_new_master_bus(&master_config, &bus_handle));
@@ -216,19 +221,21 @@ void app_main() {
     vTaskDelay(1500 / portTICK_PERIOD_MS);
 
     // Set up interrupts after MAX is set up to avoid conflicting toggle raising interrupt
+    printf("Initialising Interrupt Service Routine...\n");
     itr_init();
 
-    // Running
-    // Turn on sensors
-    printf("Communicating with MAX32664 Hub\n");
 
-    //printf("Result of sensor hub mode check: 0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x\n", test_buff[0], test_buff[1], test_buff[2], test_buff[3], test_buff[4], \
-                     test_buff[5],  test_buff[6],  test_buff[7]);
+    // Running
+    printf("Initialising MAX32664...\n");
+    max32664_init();
 
     // Main loop reads out of the output buffer and prints to terminal
     while (1) {
         
         printf("Loop\n");
+        
+        buffer_read(test_buff);
+        
         vTaskDelay(1000/ portTICK_PERIOD_MS);
         
     }
