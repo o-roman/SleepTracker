@@ -71,7 +71,7 @@ uint8_t max32644_status[2] = {0x00, 0x00};
  * @param arg 
  */
 static void gpio_isr_handler(void* arg) {
-
+    printf("ISR Triggered\n");
     // #TODO Have a look at using this function
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
@@ -84,7 +84,7 @@ static void gpio_isr_handler(void* arg) {
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, test_buff, DATA_BUFF, -1));
 
     vTaskDelay(10 / portTICK_PERIOD_MS);
-
+/*
     printf("Bytes contained are: ");
         
         for(int i = 0; i < DATA_BUFF; i++) {
@@ -93,6 +93,7 @@ static void gpio_isr_handler(void* arg) {
         printf("\n");
 
     // After ISR complete, set the pin back low ready for another interrupt
+*/
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
 } 
 
@@ -233,9 +234,15 @@ void app_main() {
     while (1) {
         
         printf("Loop\n");
+
+        // Using this to test if the ISR is setup correctly, differentiating from the interrupt being triggered from the sensor
+        // Reading the current level of MFIO, inverting it and setting it to that
+        gpio_set_level(GPIO_MFIO, !gpio_get_level(GPIO_MFIO));
         
+        // See what happens 
+
         buffer_read(test_buff);
-        
+    
         vTaskDelay(1000/ portTICK_PERIOD_MS);
         
     }
