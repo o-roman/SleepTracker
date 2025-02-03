@@ -130,27 +130,27 @@ void itr_init() {
 void max32664_init() {
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_mode_write, (uint8_t) sizeof(max32664_mode_write), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32664_interrupt_threshold, (uint8_t) sizeof(max32664_interrupt_threshold), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_mode_on, (uint8_t) sizeof(max30101_mode_on), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_hr_algo, (uint8_t) sizeof(max32644_hr_algo), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Read Status Flag: 0x%x\n", read_status_byte);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_agc_mode_off, (uint8_t) sizeof(max30101_agc_mode_off), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Read Status Flag: 0x%x\n", read_status_byte);
 
@@ -158,16 +158,16 @@ void max32664_init() {
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_led1_mode, (uint8_t) sizeof(max30101_led1_mode), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
 
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max30101_led2_mode, (uint8_t) sizeof(max30101_led2_mode), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
 
     // Sending status check message
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
-    vTaskDelay(5/ portTICK_PERIOD_MS);
+    vTaskDelay(50/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
     printf("Message read status byte: 0x%x\n", read_status_byte);
     
@@ -241,7 +241,7 @@ void app_main() {
         
         // See what happens 
 
-        buffer_read(test_buff);
+        //buffer_read(test_buff);
     
         vTaskDelay(1000/ portTICK_PERIOD_MS);
         
