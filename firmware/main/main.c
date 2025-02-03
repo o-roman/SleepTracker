@@ -23,8 +23,10 @@
 #define GPIO_RST GPIO_NUM_7
 #define GPIO_MFIO GPIO_NUM_21
 
-// Variable Declarations
+// TODO comb through interrupt declaration, for what ever reason GPIO is not toggling either which means
+// interrupt won't occur suspect its being pulled up somehow try see if you can just set it to static 0.
 
+// Variable Declarations
 i2c_master_bus_config_t master_config = {
     .clk_source = I2C_CLK_SRC_DEFAULT,
     .i2c_port = I2C_NUM_0,
@@ -92,7 +94,7 @@ static void gpio_isr_handler(void* arg) {
         }
         printf("\n");
 
-    // After ISR complete, set the pin back low ready for another interrupt
+    // After ISR complete, set the pin back high ready for another interrupt
 */
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
 } 
@@ -115,13 +117,16 @@ void gpio_init() {
  */
 void itr_init() {
     // Initialise GPIO ISR to default
-    gpio_install_isr_service(0);
+    ESP_ERROR_CHECK(gpio_install_isr_service(0));
 
     // Attach ISR to GPIO interrupt
-    gpio_isr_handler_add(GPIO_MFIO, gpio_isr_handler, NULL);
+    ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_MFIO, gpio_isr_handler, NULL));
     
     // Enable the interrupt
     ESP_ERROR_CHECK(gpio_intr_enable(GPIO_MFIO));
+
+    // Initialise Pin
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
 }
 
 /**
@@ -213,11 +218,11 @@ void app_main() {
     printf("max PASSED\n");
     
     // Startup for the MAX32664
-    gpio_set_level(GPIO_RST, 0);
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 0));
     vTaskDelay(5 / portTICK_PERIOD_MS);
-    gpio_set_level(GPIO_MFIO, 1);
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
     vTaskDelay(10/ portTICK_PERIOD_MS);
-    gpio_set_level(GPIO_RST, 1);
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 1));
 
     vTaskDelay(1500 / portTICK_PERIOD_MS);
 
@@ -230,14 +235,18 @@ void app_main() {
     printf("Initialising MAX32664...\n");
     max32664_init();
 
+    esp_intr_dump(stdout);
+
     // Main loop reads out of the output buffer and prints to terminal
     while (1) {
         
         printf("Loop\n");
-
+        printf("Currently now:%u \n", gpio_get_level(GPIO_MFIO));
         // Using this to test if the ISR is setup correctly, differentiating from the interrupt being triggered from the sensor
         // Reading the current level of MFIO, inverting it and setting it to that
-        gpio_set_level(GPIO_MFIO, !gpio_get_level(GPIO_MFIO));
+        ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
+
+        printf("flipped is now:%u \n", gpio_get_level(GPIO_MFIO));
         
         // See what happens 
 
