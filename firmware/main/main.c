@@ -67,14 +67,17 @@ uint8_t max30101_led2_mode[4] = {0x40, 0x03, 0x0D, 0x7F};
 uint8_t max30101_num_sample_FIFO[2] = {0x12, 0x00};
 uint8_t max30101_read_FIFO[2] = {0x12, 0x01};
 uint8_t max32644_status[2] = {0x00, 0x00};
+bool isr_flag = false;
 
 /**
  * Interrupt service routine that calls when the MAX30101 FIFO buffer has been filled.
  * @param arg 
  */
 static void gpio_isr_handler(void* arg) {
+    isr_flag = true;
     printf("ISR Triggered\n");
     // #TODO Have a look at using this function
+    // #FIXME double check that I2C operations can be performed inside an ISR otherwise change to a flag system
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
     vTaskDelay(5/ portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
@@ -108,7 +111,6 @@ void gpio_init() {
     ESP_ERROR_CHECK(gpio_set_direction(GPIO_RST, GPIO_MODE_INPUT));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 1));
     ESP_ERROR_CHECK(gpio_set_direction(GPIO_MFIO, GPIO_MODE_INPUT_OUTPUT));
-    ESP_ERROR_CHECK(gpio_set_intr_type(GPIO_MFIO, GPIO_INTR_NEGEDGE));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
     
 }
@@ -124,6 +126,9 @@ void itr_init() {
     
     // Enable the interrupt
     ESP_ERROR_CHECK(gpio_intr_enable(GPIO_MFIO));
+
+    // Setting the interrupt type
+    ESP_ERROR_CHECK(gpio_set_intr_type(GPIO_MFIO, GPIO_INTR_NEGEDGE));
 
     // Initialise Pin
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
@@ -246,7 +251,9 @@ void app_main() {
         // Reading the current level of MFIO, inverting it and setting it to that
         ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
 
-        printf("flipped is now:%u \n", gpio_get_level(GPIO_MFIO));
+        printf("GPIO flipped is now:%u \n", gpio_get_level(GPIO_MFIO));
+        printf("ISR Flag state is: %u", isr_flag);
+        isr_flag = false;
         
         // See what happens 
 
