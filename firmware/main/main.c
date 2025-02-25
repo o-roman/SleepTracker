@@ -76,6 +76,7 @@ bool isr_flag = false;
 static void gpio_isr_handler(void* arg) {
     isr_flag = true;
     printf("ISR Triggered\n");
+    /*
     // #TODO Have a look at using this function
     // #FIXME double check that I2C operations can be performed inside an ISR otherwise change to a flag system
     ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
@@ -89,6 +90,7 @@ static void gpio_isr_handler(void* arg) {
     ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, test_buff, DATA_BUFF, -1));
 
     vTaskDelay(10 / portTICK_PERIOD_MS);
+    */
 /*
     printf("Bytes contained are: ");
         
@@ -108,7 +110,7 @@ static void gpio_isr_handler(void* arg) {
 void gpio_init() {
 
     // Set default level high to NOT reset
-    ESP_ERROR_CHECK(gpio_set_direction(GPIO_RST, GPIO_MODE_INPUT));
+    ESP_ERROR_CHECK(gpio_set_direction(GPIO_RST, GPIO_MODE_INPUT_OUTPUT));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 1));
     ESP_ERROR_CHECK(gpio_set_direction(GPIO_MFIO, GPIO_MODE_INPUT_OUTPUT));
     ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
@@ -130,8 +132,8 @@ void itr_init() {
     // Setting the interrupt type
     ESP_ERROR_CHECK(gpio_set_intr_type(GPIO_MFIO, GPIO_INTR_NEGEDGE));
 
-    // Initialise Pin
-    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
+    // Initialise Pin High as interrupt triggers on negative edge
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
 }
 
 /**
