@@ -254,7 +254,7 @@ void app_main() {
         ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 0));
 
         printf("GPIO flipped is now:%u \n", gpio_get_level(GPIO_MFIO));
-        printf("ISR Flag state is: %u", isr_flag);
+        printf("ISR Flag state is: %u\n", isr_flag);
         isr_flag = false;
         
         // See what happens 
