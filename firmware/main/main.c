@@ -57,6 +57,7 @@ uint8_t read_status_byte = 0xFF;
 uint8_t buff[3];
 uint8_t application_mode_check = 0x80;
 uint8_t max32664_mode_write[3] = {0x10, 0x00, 0x03};
+uint8_t max32664_output_mode_read[3] = {0x11, 0x00};
 uint8_t max32664_application_mode_write[3] = {0x01, 0x00, 0x00};
 uint8_t max32664_application_mode_read[3] = {0x02, 0x00};
 uint8_t max32664_interrupt_threshold[3] = {0x10, 0x01, 0x01};
@@ -69,6 +70,7 @@ uint8_t max30101_led2_mode[4] = {0x40, 0x03, 0x0D, 0x7F};
 uint8_t max30101_num_sample_FIFO[2] = {0x12, 0x00};
 uint8_t max30101_read_FIFO[2] = {0x12, 0x01};
 uint8_t max32644_status[2] = {0x00, 0x00};
+uint8_t max32644_version[2] = {0xFF, 0x03};
 volatile bool isr_flag = false;
 
 /**
@@ -144,9 +146,9 @@ void gpio_init() {
     
     // Set default level high to NOT reset
     ESP_ERROR_CHECK(gpio_set_level(GPIO_RST, 1));
-    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));
-    
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_MFIO, 1));    
 }
+
 /**
  * Function that initialises interrupt pin (MFIO)
  */
@@ -308,7 +310,6 @@ void app_main() {
     while (1) {
         printf("MFIO State: %d\n", gpio_get_level(GPIO_MFIO));
         
-
         ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_status, (uint8_t) sizeof(max32644_status), -1));
         vTaskDelay(50/ portTICK_PERIOD_MS);
         ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
@@ -316,7 +317,14 @@ void app_main() {
         ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
         printf("Result of sensor hub mode check: 0x%x\n", read_status_byte);
         
-        
+        ESP_ERROR_CHECK(i2c_master_transmit(max32664_handle, max32644_version, (uint8_t) sizeof(max32644_version), -1));
+        vTaskDelay(50/ portTICK_PERIOD_MS);
+        ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+        printf("Message read status byte: 0x%x\n", read_status_byte);
+        ESP_ERROR_CHECK(i2c_master_receive(max32664_handle, &read_status_byte, (uint8_t) sizeof(read_status_byte), -1));
+        printf("Result of sensor version check: 0x%x\n", read_status_byte);
+
+
         if(isr_flag) {
             isr_flag = false;
             printf("Interrupt fired\n");
@@ -337,7 +345,7 @@ void app_main() {
 
         //buffer_read(test_buff);
     
-        vTaskDelay(50 / portTICK_PERIOD_MS);
+        vTaskDelay(250 / portTICK_PERIOD_MS);
         
     }
 }
